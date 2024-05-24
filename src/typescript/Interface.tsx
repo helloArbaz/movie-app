@@ -1,7 +1,11 @@
 import MovieCard from "../components/MovieCard/MovieCard";
 import { FilterMenuList } from "./Types";
 
-interface InterfaceMovieCard extends MovieCard { }
+export interface InterfaceMovieCard extends MovieCard { }
 
-interface InterfaceFilterMenuList extends FilterMenuList { }
+export interface InterfaceFilterMenuList extends FilterMenuList { }
+
+export interface InterfaceMovieAppData {
+    2012: [MovieCard]
+}
 
