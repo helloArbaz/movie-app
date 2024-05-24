@@ -7,25 +7,27 @@ import { connect } from 'react-redux';
 import WithDeviceInfo from '../hoc/WithDeviceInfo';
 import MovieCard from '../components/MovieCard/MovieCard';
 import { RootState, AppDispatch } from '../store';
-import { increment, decrement, incrementByAmount } from '../slice/movieAppSlice';
 
 import "./MovieApp.css"
+import { api_getMoviesList } from '../services/getMoviesList';
 
 
 interface MovieAppProps {
     value: number;
     increment: () => void;
     decrement: () => void;
+    api_getMoviesList: () => void;
     incrementByAmount: (amount: number) => void;
 }
 
-interface MovieAppState {}
+interface MovieAppState { }
 
 
 class MovieApp extends Component<MovieAppProps, MovieAppState> {
 
-    handleIncrement = () => {
-        this.props.increment();
+    handleIncrement = async () => {
+        let res = await this.props.api_getMoviesList()
+        console.log(res,'res')
     };
 
     handleDecrement = () => {
@@ -60,13 +62,11 @@ class MovieApp extends Component<MovieAppProps, MovieAppState> {
 
 
 const mapStateToProps = (state: RootState) => ({
-    value: state.counter.value,
+    value: state.counter,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    increment: () => dispatch(increment()),
-    decrement: () => dispatch(decrement()),
-    incrementByAmount: (amount: number) => dispatch(incrementByAmount(amount)),
+    api_getMoviesList: (reqData?: any) => dispatch(api_getMoviesList())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WithDeviceInfo(MovieApp));
